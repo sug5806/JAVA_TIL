@@ -22,7 +22,6 @@ public class StringCalculator {
         int sum = 0;
 
         for (int number : numbers) {
-            validator(number);
             sum += number;
         }
 
@@ -32,7 +31,7 @@ public class StringCalculator {
     private int[] toInts(String[] values) {
         int[] numbers = new int[values.length];
         for (int i = 0; i < values.length; i++) {
-            numbers[i] = Integer.parseInt(values[i]);
+            numbers[i] = toPositive(values[i]);
         }
 
         return numbers;
@@ -49,9 +48,13 @@ public class StringCalculator {
         return text.split(",|;");
     }
 
-    private void validator(int num) {
+    private int toPositive(String value) {
+        int num = Integer.parseInt(value);
+
         if (num < 0) {
             throw new RuntimeException("숫자는 음수일 수 없습니다.");
         }
+
+        return num;
     }
 }
