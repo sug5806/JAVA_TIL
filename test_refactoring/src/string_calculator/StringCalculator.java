@@ -6,29 +6,39 @@ import java.util.regex.Pattern;
 public class StringCalculator {
 
     public int add(String text) {
-        String[] numbers;
 
-        if (text == null) {
+        if (isBlank(text)) {
             return 0;
-        } else if (text.equals("")) {
-            return 0;
-        } else if (text.startsWith("/")) {
-            numbers = customSeparatorSplit(text);
-        } else {
-            numbers = separatorSplit(text);
         }
 
-        int result = 0;
-
-        for (String number : numbers) {
-            validator(number);
-            result = result + Integer.parseInt(number);
-        }
-
-        return result;
+        return sum(toInts(split(text)));
     }
 
-    private String[] customSeparatorSplit(String text) {
+    private boolean isBlank(String text) {
+        return text == null || text.isEmpty();
+    }
+
+    private int sum(int[] numbers) {
+        int sum = 0;
+
+        for (int number : numbers) {
+            validator(number);
+            sum += number;
+        }
+
+        return sum;
+    }
+
+    private int[] toInts(String[] values) {
+        int[] numbers = new int[values.length];
+        for (int i = 0; i < values.length; i++) {
+            numbers[i] = Integer.parseInt(values[i]);
+        }
+
+        return numbers;
+    }
+
+    private String[] split(String text) {
         Matcher matcher = Pattern.compile("//(.)\n(.*)").matcher(text);
 
         if (matcher.find()) {
@@ -36,15 +46,11 @@ public class StringCalculator {
             return matcher.group(2).split(separator);
         }
 
-        return null;
-    }
-
-    private String[] separatorSplit(String text) {
         return text.split(",|;");
     }
 
-    private void validator(String num) {
-        if (Integer.parseInt(num) < 0) {
+    private void validator(int num) {
+        if (num < 0) {
             throw new RuntimeException("숫자는 음수일 수 없습니다.");
         }
     }
