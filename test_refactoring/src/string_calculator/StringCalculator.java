@@ -11,7 +11,9 @@ public class StringCalculator {
             return 0;
         }
 
-        return sum(toInts(split(text)));
+        String[] tokens = split(text);
+
+        return sum(toInts(tokens));
     }
 
     private boolean isBlank(String text) {
