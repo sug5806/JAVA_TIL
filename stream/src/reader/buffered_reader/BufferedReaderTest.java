@@ -8,7 +8,7 @@ public class BufferedReaderTest {
     public static void main(String[] args) throws IOException {
         long start = 0;
         long end = 0;
-        String textFile = "src/stream/reader/buffered_reader/test.txt";
+        String textFile = "./stream/src/reader/buffered_reader/test.txt";
 
         FileReader fileReader1 = new FileReader(textFile);
 
