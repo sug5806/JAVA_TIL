@@ -2,6 +2,7 @@ package webserver;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import util.HttpMethod;
 import util.HttpRequestUtils;
 
 import java.util.HashMap;
@@ -10,9 +11,9 @@ import java.util.Map;
 public class RequestLine {
     private static final Logger log = LoggerFactory.getLogger(RequestLine.class);
 
-    private String method;
     private String path;
     private Map<String, String> params = new HashMap<>();
+    private HttpMethod method;
 
     public RequestLine(String requestLine) {
         log.debug("request line : {}", requestLine);
@@ -21,9 +22,9 @@ public class RequestLine {
             throw new IllegalArgumentException(requestLine + "이 형식에 맞지 않습니다.");
         }
 
-        method = tokens[0];
+        method = HttpMethod.valueOf(tokens[0]);
 
-        if ("POST".equals(this.method)) {
+        if (method.isPost()) {
             path = tokens[1];
             return;
         }
@@ -38,7 +39,7 @@ public class RequestLine {
         }
     }
 
-    public String getMethod() {
+    public HttpMethod getMethod() {
         return method;
     }
 
