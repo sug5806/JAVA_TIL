@@ -49,6 +49,11 @@ public class HttpRequest {
         }
     }
 
+    public static Map<String, String> getCookie(String line) {
+        String[] headerTokens = line.split(":");
+        return HttpRequestUtils.parseCookies(headerTokens[1].trim());
+    }
+
     public String getMethod() {
         return this.requestLine.getMethod().name();
     }
