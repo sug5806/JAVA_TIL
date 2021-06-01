@@ -54,8 +54,8 @@ public class HttpRequest {
         return HttpRequestUtils.parseCookies(headerTokens[1].trim());
     }
 
-    public String getMethod() {
-        return this.requestLine.getMethod().name();
+    public HttpMethod getMethod() {
+        return this.requestLine.getMethod();
     }
 
     public String getPath() {
