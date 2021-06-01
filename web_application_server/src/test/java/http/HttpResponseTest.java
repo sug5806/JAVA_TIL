@@ -2,7 +2,6 @@ package http;
 
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -30,6 +29,6 @@ public class HttpResponseTest {
     }
 
     private OutputStream createOutputStream(String filename) throws FileNotFoundException {
-        return new FileOutputStream(new File(testDirectory + filename));
+        return new FileOutputStream(testDirectory + filename);
     }
 }
