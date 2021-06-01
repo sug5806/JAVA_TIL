@@ -1,7 +1,6 @@
-package util;
+package http;
 
 import org.junit.jupiter.api.Test;
-import webserver.RequestLine;
 
 import java.util.Map;
 

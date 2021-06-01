@@ -1,7 +1,6 @@
-package util;
+package http;
 
 import org.junit.jupiter.api.Test;
-import webserver.HttpRequest;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
