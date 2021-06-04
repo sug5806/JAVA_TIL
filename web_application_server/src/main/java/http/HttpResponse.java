@@ -28,7 +28,7 @@ public class HttpResponse {
 
     public void forward(String url) {
         try {
-            byte[] body = Files.readAllBytes(new File("./webapp" + url).toPath());
+            byte[] body = Files.readAllBytes(new File("web_application_server/webapp" + url).toPath());
 
             if (url.endsWith(".css")) {
                 headers.put("Content-Type", "text/css");
@@ -42,6 +42,7 @@ public class HttpResponse {
             response200Header(body.length);
             responseBody(body);
         } catch (IOException e) {
+            log.error("?????????");
             log.error(e.getMessage());
         }
     }

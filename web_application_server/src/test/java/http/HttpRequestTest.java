@@ -8,7 +8,7 @@ import java.io.InputStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HttpRequestTest {
-    private String testDirectory = "./src/test/resources/";
+    private String testDirectory = "web_application_server/src/test/resources/";
 
     @Test
     public void request_GET() throws Exception {
