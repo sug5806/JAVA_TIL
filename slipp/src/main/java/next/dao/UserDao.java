@@ -1,6 +1,8 @@
 package next.dao;
 
 import core.jdbc.ConnectionManager;
+import core.jdbc.InsertJdbcTemplate;
+import core.jdbc.UpdateJdbcTemplate;
 import next.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,65 +15,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
+
     private static final Logger log = LoggerFactory.getLogger(UserDao.class);
 
     public void insert(User user) throws SQLException {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-        try {
-            con = ConnectionManager.getConnection();
-            String sql = createQueryForInsert();
-            pstmt = con.prepareStatement(sql);
-            setValuesForInsert(user, pstmt);
+        InsertJdbcTemplate insertJdbcTemplate = new InsertJdbcTemplate();
 
-            pstmt.executeUpdate();
-        } finally {
-            if (pstmt != null) {
-                pstmt.close();
-            }
-
-            if (con != null) {
-                con.close();
-            }
-        }
+        insertJdbcTemplate.insert(user, this);
     }
 
-    private void setValuesForInsert(User user, PreparedStatement pstmt) throws SQLException {
+    public void setValuesForInsert(User user, PreparedStatement pstmt) throws SQLException {
         pstmt.setString(1, user.getUserId());
         pstmt.setString(2, user.getPassword());
         pstmt.setString(3, user.getName());
         pstmt.setString(4, user.getEmail());
     }
 
-    private String createQueryForInsert() {
+    public String createQueryForInsert() {
         return "INSERT INTO USERS VALUES (?, ?, ?, ?)";
     }
 
     public void update(User user) throws SQLException {
-        // TODO 구현 필요함.
-        Connection con = null;
-        PreparedStatement pstmt = null;
+        UpdateJdbcTemplate updateJdbcTemplate = new UpdateJdbcTemplate();
 
-        try {
-            con = ConnectionManager.getConnection();
-            String sql = createQueryForUpdate();
-            pstmt = con.prepareStatement(sql);
-            setValuesForUpdate(user, pstmt);
-
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            log.error(e.getMessage());
-        } finally {
-            if (pstmt != null) {
-                pstmt.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        }
+        updateJdbcTemplate.update(user, this);
     }
 
-    private void setValuesForUpdate(User user, PreparedStatement pstmt) throws SQLException {
+    public void setValuesForUpdate(User user, PreparedStatement pstmt) throws SQLException {
         pstmt.setString(1, user.getUserId());
         pstmt.setString(2, user.getPassword());
         pstmt.setString(3, user.getName());
@@ -79,7 +49,7 @@ public class UserDao {
         pstmt.setString(5, user.getUserId());
     }
 
-    private String createQueryForUpdate() {
+    public String createQueryForUpdate() {
         return "UPDATE USERS SET userId=?, password=?, name=?, email=? WHERE userId=?";
     }
 
@@ -103,7 +73,6 @@ public class UserDao {
                 String password = rs.getString("password");
                 String name = rs.getString("name");
                 String email = rs.getString("email");
-                log.debug("asdf userId : {}, password : {}, name : {}, email : {}", userId, password, name, email);
 
                 user = new User(userId, password, name, email);
 
