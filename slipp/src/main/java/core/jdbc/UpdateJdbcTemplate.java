@@ -1,6 +1,5 @@
 package core.jdbc;
 
-import next.dao.UserDao;
 import next.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,18 +8,18 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UpdateJdbcTemplate {
+public abstract class UpdateJdbcTemplate {
     private static final Logger log = LoggerFactory.getLogger(UpdateJdbcTemplate.class);
 
-    public void update(User user, UserDao userDao) throws SQLException {
+    public void update(User user) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
 
         try {
             con = ConnectionManager.getConnection();
-            String sql = userDao.createQueryForUpdate();
+            String sql = createQueryForUpdate();
             pstmt = con.prepareStatement(sql);
-            userDao.setValuesForUpdate(user, pstmt);
+            setValuesForUpdate(user, pstmt);
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -34,4 +33,8 @@ public class UpdateJdbcTemplate {
             }
         }
     }
+
+    public abstract void setValuesForUpdate(User user, PreparedStatement pstmt) throws SQLException;
+
+    public abstract String createQueryForUpdate();
 }
