@@ -1,6 +1,5 @@
 package core.jdbc;
 
-import next.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,15 +10,15 @@ import java.sql.SQLException;
 public abstract class JdbcTemplate {
     private static final Logger log = LoggerFactory.getLogger(JdbcTemplate.class);
 
-    public void update(User user) throws SQLException {
+    public void update(String query) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
 
         try {
             con = ConnectionManager.getConnection();
-            String sql = createQuery();
+            String sql = query;
             pstmt = con.prepareStatement(sql);
-            setValues(user, pstmt);
+            setValues(pstmt);
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -35,7 +34,5 @@ public abstract class JdbcTemplate {
         }
     }
 
-    public abstract void setValues(User user, PreparedStatement pstmt) throws SQLException;
-
-    public abstract String createQuery();
+    public abstract void setValues(PreparedStatement pstmt) throws SQLException;
 }
