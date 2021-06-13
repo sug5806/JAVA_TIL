@@ -33,7 +33,7 @@ public class UserDao {
         insertJdbcTemplate.update(query, pss);
     }
 
-    public void update(User user) throws SQLException {
+    public void update(User user) {
         PreparedStatementSetter pss = pstmt -> {
             pstmt.setString(1, user.getUserId());
             pstmt.setString(2, user.getPassword());
