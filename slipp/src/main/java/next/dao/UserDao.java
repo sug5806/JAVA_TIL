@@ -56,7 +56,7 @@ public class UserDao {
 
         PreparedStatementSetter pss = pstmt -> pstmt;
 
-        RowMapper rm = rs -> new User(
+        RowMapper<User> rm = rs -> new User(
                 rs.getString("userId"),
                 rs.getString("password"),
                 rs.getString("name"),
@@ -68,7 +68,7 @@ public class UserDao {
         };
 
         String sql = "SELECT userId, password, name, email FROM USERS";
-        return (List<User>) selectTemplate.query(sql, pss, rm);
+        return selectTemplate.query(sql, pss, rm);
     }
 
     public User findByUserId(String userId) throws SQLException {
@@ -78,7 +78,7 @@ public class UserDao {
             return pstmt;
         };
 
-        RowMapper rm = rs -> new User(
+        RowMapper<User> rm = rs -> new User(
                 rs.getString("userId"),
                 rs.getString("password"),
                 rs.getString("name"),
@@ -90,6 +90,6 @@ public class UserDao {
         };
 
         String sql = "SELECT userId, password, name, email FROM USERS WHERE userId=?";
-        return (User) selectTemplate.queryForObject(sql, pss, rm);
+        return selectTemplate.queryForObject(sql, pss, rm);
     }
 }
