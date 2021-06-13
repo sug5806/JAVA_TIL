@@ -1,7 +1,6 @@
 package next.dao;
 
 import core.jdbc.JdbcTemplate;
-import core.jdbc.SelectTemplate;
 import next.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +18,11 @@ public class UserDao {
 
         JdbcTemplate insertJdbcTemplate = new JdbcTemplate() {
             @Override
+            public Object mapRow(ResultSet resultSet) throws SQLException {
+                return null;
+            }
+
+            @Override
             public void setValues(PreparedStatement pstmt) throws SQLException {
                 pstmt.setString(1, user.getUserId());
                 pstmt.setString(2, user.getPassword());
@@ -33,7 +37,12 @@ public class UserDao {
     }
 
     public void update(User user) throws SQLException {
-        JdbcTemplate jdbcTemplate = new JdbcTemplate() {
+        JdbcTemplate updateJdbcTemplate = new JdbcTemplate() {
+            @Override
+            public Object mapRow(ResultSet resultSet) throws SQLException {
+                return null;
+            }
+
             @Override
             public void setValues(PreparedStatement pstmt) throws SQLException {
                 pstmt.setString(1, user.getUserId());
@@ -46,12 +55,12 @@ public class UserDao {
 
         String query = "UPDATE USERS SET userId=?, password=?, name=?, email=? WHERE userId=?";
 
-        jdbcTemplate.update(query);
+        updateJdbcTemplate.update(query);
     }
 
     public List<User> findAll() throws SQLException {
 
-        SelectTemplate selectTemplate = new SelectTemplate() {
+        JdbcTemplate selectTemplate = new JdbcTemplate() {
             @Override
             public void setValues(PreparedStatement preparedStatement) throws SQLException {
 
@@ -77,7 +86,7 @@ public class UserDao {
 
     public User findByUserId(String userId) throws SQLException {
 
-        SelectTemplate selectTemplate = new SelectTemplate() {
+        JdbcTemplate selectTemplate = new JdbcTemplate() {
             @Override
             public void setValues(PreparedStatement preparedStatement) throws SQLException {
                 preparedStatement.setString(1, userId);
