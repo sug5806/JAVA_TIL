@@ -1,7 +1,6 @@
 package next.dao;
 
 import core.jdbc.JdbcTemplate;
-import core.jdbc.RowMapper;
 import next.model.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,16 +27,14 @@ public class UserDao {
 
     public List<User> findAll() throws SQLException {
         String sql = "SELECT userId, password, name, email FROM USERS";
-        RowMapper<User> rm = rs -> new User(
+
+        JdbcTemplate selectTemplate = new JdbcTemplate();
+        return selectTemplate.query(sql, rs -> new User(
                 rs.getString("userId"),
                 rs.getString("password"),
                 rs.getString("name"),
                 rs.getString("email")
-
-        );
-
-        JdbcTemplate selectTemplate = new JdbcTemplate();
-        return selectTemplate.query(sql, rm);
+        ));
     }
 
     public User findByUserId(String userId) {
