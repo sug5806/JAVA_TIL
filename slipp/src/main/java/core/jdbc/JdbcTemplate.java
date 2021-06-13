@@ -13,7 +13,7 @@ import java.util.List;
 public abstract class JdbcTemplate {
     private static final Logger log = LoggerFactory.getLogger(JdbcTemplate.class);
 
-    public void update(String query) throws SQLException {
+    public void update(String query, PreparedStatementSetter pss) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
 
@@ -21,7 +21,7 @@ public abstract class JdbcTemplate {
             con = ConnectionManager.getConnection();
             String sql = query;
             pstmt = con.prepareStatement(sql);
-            setValues(pstmt);
+            pss.setValues(pstmt);
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -37,7 +37,7 @@ public abstract class JdbcTemplate {
         }
     }
 
-    public List query(String sql) throws SQLException {
+    public List query(String sql, PreparedStatementSetter pss, RowMapper rm) throws SQLException {
         Connection con = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -45,14 +45,14 @@ public abstract class JdbcTemplate {
         try {
             con = ConnectionManager.getConnection();
             pstmt = con.prepareStatement(sql);
-            setValues(pstmt);
+            pss.setValues(pstmt);
 
             rs = pstmt.executeQuery();
 
             List<Object> result = new ArrayList<>();
 
             while (rs.next()) {
-                result.add(mapRow(rs));
+                result.add(rm.mapRow(rs));
             }
 
             return result;
@@ -70,17 +70,12 @@ public abstract class JdbcTemplate {
         }
     }
 
-    public Object queryForObject(String query) throws SQLException {
-        List result = query(query);
+    public Object queryForObject(String query, PreparedStatementSetter pss, RowMapper rm) throws SQLException {
+        List result = query(query, pss, rm);
         if (result.isEmpty()) {
             return null;
         }
 
         return result.get(0);
     }
-
-    public abstract Object mapRow(ResultSet resultSet) throws SQLException;
-
-
-    public abstract void setValues(PreparedStatement pstmt) throws SQLException;
 }
