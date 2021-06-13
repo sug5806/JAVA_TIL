@@ -14,37 +14,21 @@ public abstract class JdbcTemplate {
     private static final Logger log = LoggerFactory.getLogger(JdbcTemplate.class);
 
     public void update(String query, PreparedStatementSetter pss) throws SQLException {
-        Connection con = null;
-        PreparedStatement pstmt = null;
-
-        try {
-            con = ConnectionManager.getConnection();
-            String sql = query;
-            pstmt = con.prepareStatement(sql);
+        try (Connection con = ConnectionManager.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(query)) {
             pss.setValues(pstmt);
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
             log.error(e.getMessage());
-        } finally {
-            if (pstmt != null) {
-                pstmt.close();
-            }
-
-            if (con != null) {
-                con.close();
-            }
         }
     }
 
     public List query(String sql, PreparedStatementSetter pss, RowMapper rm) throws SQLException {
-        Connection con = null;
-        PreparedStatement pstmt = null;
         ResultSet rs = null;
 
-        try {
-            con = ConnectionManager.getConnection();
-            pstmt = con.prepareStatement(sql);
+        try (Connection con = ConnectionManager.getConnection();
+             PreparedStatement pstmt = con.prepareStatement(sql)) {
             pss.setValues(pstmt);
 
             rs = pstmt.executeQuery();
@@ -59,13 +43,6 @@ public abstract class JdbcTemplate {
         } finally {
             if (rs != null) {
                 rs.close();
-            }
-            if (pstmt != null) {
-                pstmt.close();
-            }
-
-            if (con != null) {
-                con.close();
             }
         }
     }

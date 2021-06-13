@@ -69,8 +69,6 @@ public class UserDao {
 
         String sql = "SELECT userId, password, name, email FROM USERS";
         return (List<User>) selectTemplate.query(sql, pss, rm);
-
-
     }
 
     public User findByUserId(String userId) throws SQLException {
@@ -93,7 +91,5 @@ public class UserDao {
 
         String sql = "SELECT userId, password, name, email FROM USERS WHERE userId=?";
         return (User) selectTemplate.queryForObject(sql, pss, rm);
-
-
     }
 }
