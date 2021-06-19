@@ -1,9 +1,9 @@
 package next.dao;
 
+import com.sun.org.slf4j.internal.LoggerFactory;
 import core.jdbc.JdbcTemplate;
 import next.model.User;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

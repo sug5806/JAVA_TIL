@@ -1,4 +1,4 @@
-package input_output.number11;
+package input_output.Q_2588;
 
 import java.io.BufferedReader;
 import java.io.IOException;
