@@ -1,4 +1,4 @@
-package while_.Q_2739;
+package for_.Q_2739;
 
 import java.io.BufferedReader;
 import java.io.IOException;
