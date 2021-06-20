@@ -21,10 +21,6 @@ public class Main {
         int num1 = Integer.parseInt(stringTokenizer.nextToken());
         int num2 = Integer.parseInt(stringTokenizer.nextToken());
 
-        if (num1 < num2) {
-            System.out.println(num2);
-        } else {
-            System.out.println(num1);
-        }
+        System.out.println(Math.max(num1, num2));
     }
 }
