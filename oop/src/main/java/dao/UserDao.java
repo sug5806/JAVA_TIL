@@ -1,7 +1,6 @@
 package dao;
 
 import connection.ConnectionMaker;
-import connection.DConnectionMaker;
 import domain.User;
 
 import java.sql.Connection;
@@ -13,8 +12,8 @@ public class UserDao {
 
     private ConnectionMaker connectionMaker;
 
-    public UserDao() {
-        this.connectionMaker = new DConnectionMaker();
+    public UserDao(ConnectionMaker connectionMaker) {
+        this.connectionMaker = connectionMaker;
     }
 
     public void add(User user) throws ClassNotFoundException, SQLException {
