@@ -6,9 +6,11 @@ import dao.UserDao;
 
 public class DaoFactory {
     public UserDao userDao() {
-        ConnectionMaker connectionMaker = new DConnectionMaker();
-        UserDao userDao = new UserDao(connectionMaker);
+        ConnectionMaker connectionMaker = connectionMaker();
+        return new UserDao(connectionMaker);
+    }
 
-        return userDao;
+    public ConnectionMaker connectionMaker() {
+        return new DConnectionMaker();
     }
 }
