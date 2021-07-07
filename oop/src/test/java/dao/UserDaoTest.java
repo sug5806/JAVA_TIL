@@ -17,22 +17,23 @@ class UserDaoTest {
         ApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
 
         UserDao userDao = context.getBean("userDao", UserDao.class);
+        User user1 = new User("1", "name1", "password1");
+        User user2 = new User("2", "name2", "password2");
 
         userDao.deleteAll();
         assertThat(userDao.getCount()).isEqualTo(0);
 
-        User user = new User();
-        user.setId("asdf");
-        user.setName("name");
-        user.setPassword("1234");
+        userDao.add(user1);
+        userDao.add(user2);
+        assertThat(userDao.getCount()).isEqualTo(2);
 
-        userDao.add(user);
-        assertThat(userDao.getCount()).isEqualTo(1);
+        User userGet1 = userDao.get(user1.getId());
+        assertThat(userGet1.getName()).isEqualTo(user1.getName());
+        assertThat(userGet1.getPassword()).isEqualTo(user1.getPassword());
 
-        User user1 = userDao.get(user.getId());
-
-        assertThat(user1.getName()).isEqualTo(user1.getName());
-        assertThat(user1.getPassword()).isEqualTo(user1.getPassword());
+        User userGet2 = userDao.get(user2.getId());
+        assertThat(userGet2.getName()).isEqualTo(userGet2.getName());
+        assertThat(userGet2.getPassword()).isEqualTo(userGet2.getPassword());
     }
 
     @Test
