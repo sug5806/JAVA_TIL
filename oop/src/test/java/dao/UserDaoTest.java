@@ -4,6 +4,7 @@ import domain.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.sql.SQLException;
 
@@ -32,7 +33,27 @@ class UserDaoTest {
 
         assertThat(user1.getName()).isEqualTo(user1.getName());
         assertThat(user1.getPassword()).isEqualTo(user1.getPassword());
+    }
 
+    @Test
+    public void count() throws SQLException {
+        ApplicationContext context = new GenericXmlApplicationContext("applicationContext.xml");
 
+        UserDao dao = context.getBean("userDao", UserDao.class);
+        User user1 = new User("1", "name1", "password1");
+        User user2 = new User("2", "name2", "password2");
+        User user3 = new User("3", "name3", "password3");
+
+        dao.deleteAll();
+        assertThat(dao.getCount()).isEqualTo(0);
+
+        dao.add(user1);
+        assertThat(dao.getCount()).isEqualTo(1);
+
+        dao.add(user2);
+        assertThat(dao.getCount()).isEqualTo(2);
+
+        dao.add(user3);
+        assertThat(dao.getCount()).isEqualTo(3);
     }
 }
