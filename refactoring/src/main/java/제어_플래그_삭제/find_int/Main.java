@@ -1,4 +1,4 @@
-package 제어_플래그_삭제;
+package 제어_플래그_삭제.find_int;
 
 public class Main {
     public static void main(String[] args) {
