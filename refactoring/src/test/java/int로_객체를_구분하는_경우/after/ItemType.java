@@ -11,19 +11,6 @@ public class ItemType {
         _typecode = typecode;
     }
 
-    public static ItemType getItemType(int typecode) {
-        switch (typecode) {
-            case 0:
-                return BOOK;
-            case 1:
-                return DVD;
-            case 2:
-                return SOFTWARE;
-            default:
-                return null;
-        }
-    }
-
     public int getTypecode() {
         return _typecode;
     }
