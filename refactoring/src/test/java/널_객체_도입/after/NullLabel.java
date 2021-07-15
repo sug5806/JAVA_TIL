@@ -2,7 +2,7 @@ package 널_객체_도입.after;
 
 public class NullLabel extends Label {
 
-    public NullLabel(String label) {
+    public NullLabel() {
         super("(none)");
     }
 
