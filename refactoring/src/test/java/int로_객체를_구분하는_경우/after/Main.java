@@ -3,17 +3,17 @@ package int로_객체를_구분하는_경우.after;
 public class Main {
     public static void main(String[] args) {
         Item book = new Item(
-                Item.TYPECODE_BOOK,
+                ItemType.BOOK,
                 "세계 역사",
                 4800);
 
         Item dvd = new Item(
-                Item.TYPECODE_DVD,
+                ItemType.DVD,
                 "뉴욕의 꿈 특별판",
                 3000);
 
         Item soft = new Item(
-                Item.TYPECODE_SOFTWARE,
+                ItemType.SOFTWARE,
                 "튜링 머신 에뮬레이터",
                 3200);
 

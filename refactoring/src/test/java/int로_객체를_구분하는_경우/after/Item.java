@@ -9,8 +9,8 @@ public class Item {
     private final String _title;
     private final int _price;
 
-    public Item(int typecode, String title, int price) {
-        _itemtype = ItemType.getItemType(typecode);
+    public Item(ItemType itemType, String title, int price) {
+        _itemtype = itemType;
         _title = title;
         _price = price;
     }
