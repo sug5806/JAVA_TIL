@@ -18,4 +18,33 @@ public class Label {
     public boolean isNull() {
         return false;
     }
+
+    // 팩토리 메서드
+    public static Label newNull() {
+        return NullLabel.getInstance();
+    }
+
+    // 널 객체
+    private static class NullLabel extends Label {
+        // 싱글톤
+        private static final NullLabel singleton = new NullLabel();
+
+        private NullLabel() {
+            super("(none)");
+        }
+
+        private static NullLabel getInstance() {
+            return singleton;
+        }
+
+        @Override
+        public void display() {
+        }
+
+        @Override
+        public boolean isNull() {
+            return true;
+        }
+    }
+
 }
