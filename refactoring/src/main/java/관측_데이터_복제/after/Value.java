@@ -18,10 +18,17 @@ public class Value {
 
     public void setValue(int value) {
         _value = value;
+        notifyToListeners();
     }
 
     public void addValueListener(ValueListener listener) {
         _listeners.add(listener);
+    }
+
+    private void notifyToListeners() {
+        for (ValueListener listener : _listeners) {
+            listener.valueChanged(new ValueChangeEvent(this));
+        }
     }
 
 
