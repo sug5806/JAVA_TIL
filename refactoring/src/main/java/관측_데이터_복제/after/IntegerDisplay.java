@@ -12,31 +12,41 @@ public class IntegerDisplay extends Frame implements ActionListener, ValueListen
     private final Label _hexadecimalLabel = new Label("0");
     private final Button _incrementButton = new Button("+");
     private final Button _decrementButton = new Button("-");
+    private final Graph _graphCircle = Graph.createGraph(Graph.CIRCLE, 100, 100);
+    private final Graph _graphRectangle = Graph.createGraph(Graph.RECTANGLE, 100, 50);
+    private Value _value = new Value(0);
 
     @Override
     public void valueChanged(ValueChangeEvent event) {
 
     }
 
-    private Value _value = new Value(0);
-
     public IntegerDisplay() {
         super("IntegerDisplay");
 
-        _value.addValueListener(this);
+        setLayout(new BorderLayout());
 
-        setLayout(new GridLayout(4, 2));
-        add(new Label("Octal:"));
-        add(_octalLabel);
-        add(new Label("Decimal:"));
-        add(_decimalLabel);
-        add(new Label("Hexadecimal:"));
-        add(_hexadecimalLabel);
-        add(_incrementButton);
-        add(_decrementButton);
+        Panel panel = new Panel(new GridLayout(4, 2));
+        panel.add(new Label("Octal:"));
+        panel.add(_octalLabel);
+        panel.add(new Label("Decimal:"));
+        panel.add(_decimalLabel);
+        panel.add(new Label("Hexadecimal:"));
+        panel.add(_hexadecimalLabel);
+        panel.add(_incrementButton);
+        panel.add(_decrementButton);
+
+        add(panel, BorderLayout.NORTH);
+        add(_graphCircle, BorderLayout.CENTER);
+        add(_graphRectangle, BorderLayout.SOUTH);
 
         _incrementButton.addActionListener(this);
         _decrementButton.addActionListener(this);
+
+        _value.addValueListener(this);
+
+        _value.addValueListener(_graphCircle);
+        _value.addValueListener(_graphRectangle);
 
         addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent e) {
