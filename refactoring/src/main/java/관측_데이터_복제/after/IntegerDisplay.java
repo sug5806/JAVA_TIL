@@ -23,6 +23,8 @@ public class IntegerDisplay extends Frame implements ActionListener, ValueListen
     public IntegerDisplay() {
         super("IntegerDisplay");
 
+        _value.addValueListener(this);
+
         setLayout(new GridLayout(4, 2));
         add(new Label("Octal:"));
         add(_octalLabel);
