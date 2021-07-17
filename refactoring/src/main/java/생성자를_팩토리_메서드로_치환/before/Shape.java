@@ -11,16 +11,12 @@ public class Shape {
     private final int _endx;
     private final int _endy;
 
-    private Shape(int typecode, int startx, int starty, int endx, int endy) {
+    public Shape(int typecode, int startx, int starty, int endx, int endy) {
         _typecode = typecode;
         _startx = startx;
         _endx = endx;
         _starty = starty;
         _endy = endy;
-    }
-
-    public static Shape create(int typecode, int startx, int starty, int endx, int endy) {
-        return new Shape(typecode, startx, starty, endx, endy);
     }
 
     public int getTypecode() {
