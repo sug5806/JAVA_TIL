@@ -11,7 +11,7 @@ public class Shape {
     private final int _endx;
     private final int _endy;
 
-    public Shape(int typecode, int startx, int starty, int endx, int endy) {
+    private Shape(int typecode, int startx, int starty, int endx, int endy) {
         _typecode = typecode;
         _startx = startx;
         _endx = endx;
