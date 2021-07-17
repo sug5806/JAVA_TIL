@@ -6,12 +6,17 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class IntegerDisplay extends Frame implements ActionListener {
+public class IntegerDisplay extends Frame implements ActionListener, ValueListener {
     private final Label _octalLabel = new Label("0");
     private final Label _decimalLabel = new Label("0");
     private final Label _hexadecimalLabel = new Label("0");
     private final Button _incrementButton = new Button("+");
     private final Button _decrementButton = new Button("-");
+
+    @Override
+    public void valueChanged(ValueChangeEvent event) {
+
+    }
 
     private Value _value = new Value(0);
 
