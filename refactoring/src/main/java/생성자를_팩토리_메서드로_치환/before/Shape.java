@@ -19,6 +19,10 @@ public class Shape {
         _endy = endy;
     }
 
+    public static Shape create(int typecode, int startx, int starty, int endx, int endy) {
+        return new Shape(typecode, startx, starty, endx, endy);
+    }
+
     public int getTypecode() {
         return _typecode;
     }
