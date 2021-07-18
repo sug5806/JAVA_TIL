@@ -2,51 +2,22 @@ package 상속을_위임으로_치환.after;
 
 import java.util.Random;
 
-public class Dice extends Random {
+public class Dice {
     private final Random _random;
 
     public Dice() {
-        super(314159L);
-        _random = this;
+        _random = new Random(313123L);
     }
 
     public Dice(long seed) {
-        super(seed);
-        _random = this;
+        _random = new Random(seed);
     }
 
-    @Override
+    public void setSeed(long seed) {
+        _random.setSeed(seed);
+    }
+
     public int nextInt() {
         return _random.nextInt(6) + 1;
-    }
-
-    @Override
-    public void nextBytes(byte[] bytes) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public long nextLong() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean nextBoolean() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public float nextFloat() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public double nextDouble() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public synchronized double nextGaussian() {
-        throw new UnsupportedOperationException();
     }
 }
