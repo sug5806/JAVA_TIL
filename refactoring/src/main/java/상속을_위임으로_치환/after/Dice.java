@@ -6,7 +6,7 @@ public class Dice {
     private final Random _random;
 
     public Dice() {
-        _random = new Random(313123L);
+        this(34242L);
     }
 
     public Dice(long seed) {
