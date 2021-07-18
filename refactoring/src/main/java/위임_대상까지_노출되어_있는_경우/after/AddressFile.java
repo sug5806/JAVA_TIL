@@ -11,7 +11,7 @@ public class AddressFile {
     }
 
     public Enumeration names() {
-        return _database.getProperties().propertyNames();
+        return _database.keys();
     }
 
     public void set(String key, String value) {
